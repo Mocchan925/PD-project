@@ -1,0 +1,55 @@
+---
+title: "Normalization step1"
+author: "mjy"
+date: "2021/7/26"
+output: html_document
+---
+
+Data using origianl Olink panel data, to separate these by plate number and PD and Contorl groups.  
+
+Here I use Neurology panel as example
+
+calculation of normalization (step2) was performed via python
+
+
+```{r}
+library(tidyverse)
+
+df_N = read.csv(file.choose(), stringsAsFactors = F, sep=",",header=T,encoding="UTF-8")#import neurology panel
+#head(df_N)
+
+##plate separation 
+p1 = df_N %>%
+  filter_all(any_vars(grepl('GZY_neurology_1',.)))
+
+p2 = df_N %>%
+  filter_all(any_vars(grepl('GZY_neurology_plt2',.)))
+
+##HC & PD
+PD_p1 = p1 %>%
+  filter_all(any_vars(grepl('PD',.)))
+#head(PD_p1)
+
+HC_p1 = p1 %>%
+  filter_all(any_vars(grepl('Control',.)))
+#head(HC_p1)
+
+#write.table(PD_p1,"NU_PD1.csv",row.names=FALSE,col.names=TRUE,sep=",")
+#write.table(HC_p1,"NU_HC1.csv",row.names=FALSE,col.names=TRUE,sep=",")
+
+PD_p2 = p2 %>%
+  filter_all(any_vars(grepl('PD',.)))
+#head(PD_p2)
+
+HC_p2 = p2 %>%
+  filter_all(any_vars(grepl('Control',.)))
+#head(HC_p2)
+
+#write.table(PD_p2,"NU_PD2.csv",row.names=FALSE,col.names=TRUE,sep=",")
+#write.table(HC_p2,"NU_HC2.csv",row.names=FALSE,col.names=TRUE,sep=",")
+
+```
+
+after separation, the rownames were missing, then added manually in excel (incl. Groups, ID, Plate, Assay)
+
+

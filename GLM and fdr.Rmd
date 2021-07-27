@@ -1,0 +1,45 @@
+---
+title: "GLM-p value"
+author: "mjy"
+date: "2021/7/27"
+output: html_document
+---
+
+```{r}
+NU = read.csv(file.choose(), stringsAsFactors = F, sep=",",header=T,encoding="UTF-8")
+
+NU$Groups <- as.factor(NU$Groups)
+NU$Gender <- as.factor(NU$Gender)
+
+
+a<- list()
+
+for (i in 7:ncol(NU)){
+  a[[i-6]]=summary(glm(NU[,i]~NU$Groups+NU$Age+NU$Gender))
+}
+
+##extract P value
+NU_P<- as.data.frame(lapply(a, function(x) x$coefficients[, c(4)]))
+cn<-colnames(NU[7:95])
+names(NU_P) <- cn
+
+head(NU_P)
+#write.table(NU_P,"NU PVALUE2.csv",row.names=T,col.names=TRUE,sep=",")
+
+
+```
+
+## P value correction 
+
+```{r}
+Nu_P_group<- (NU_P[2,])
+NU_adj<- p.adjust(Nu_P_group, method = "BH")
+
+temp<-t(Nu_P_group)
+temp2<-data.frame(temp,NU_adj)
+
+names(temp2)<-c("pvalue","padjust")
+head(temp2)
+#write.table(temp2,"NU_Padj2.csv",row.names=T,col.names=TRUE,sep=",")
+```
+
