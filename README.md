@@ -27,7 +27,8 @@ IF_P1=pd.read_csv('ifp1.csv')#equal to PD-panel1
 
 IF_P1=IF_P1.drop(['UserID','Gender','Age'], axis=1)
 IF_P1.head()
-```  
+```
+
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -385,29 +386,63 @@ IF_C2.head()
 ```  
 ```python
 m_c2 =IF_C2.median(axis =0)
-
 x2 = IF_P2 - m_c2
 x2.to_excel(r'C:\Users\mojiayi\Documents\n_IF_P2.xlsx',encoding='utf-8')
 ```  
 
 #### normalization of control
 ```python
-
-
 x3 = IF_C1 - m_c1
 x3
 x3.to_excel(r'C:\Users\mojiayi\Documents\n_IF_C1.xlsx',encoding='utf-8')
 ```
 
 ```python
-
-
 x4 = IF_C2 - m_c2
 x4
 x4.to_excel(r'C:\Users\mojiayi\Documents\n_IF_C2.xlsx',encoding='utf-8')
 ```
 
 # 广义线性模型General linear model  
+***此处分析用的是R语言***  
+```r
+IF =  read.csv('C:/Users/mojiayi/Documents/PD/normalization/if/IF0802.csv', sep=",",header=T,encoding="UTF-8")
+IF$Gender <- as.factor(IF$Gender) #factorize 0 and 1 variables
+IF$Groups <- as.factor(IF$Group)
+
+c<- list() #建一个空的list等下用来放glm的coefficient （p value）
+
+for (i in 7:ncol(IF)){
+  c[[i-6]]=summary(glm(IF[,i]~IF$Group+IF$Age+IF$Gender))
+}#glm循环
+
+#extract P value
+IF_P<- as.data.frame(lapply(c, function(x) x$coefficients[, c(4)])) #一整个coefficient的dataframe
+cn4<-colnames(IF[7:82]) #补充特征的名字
+names(IF_P) <- cn4
+
+write.table(IF_P,"IF P0802.csv",row.names=T,col.names=TRUE,sep=",") #校正前的P value
+```  
+
+ |        |ADAM.22 | ADAM.23 | Alpha.2.MRAP | BCAN | BMP.4|
+ |------- | ------ | ------- | ------------ | ---- | -----|
+|(Intercept) | 4.624140e-05 | 0.010147377 | 0.02521092 | 8.086147e-02 | 0.005998377|
+|NU$GroupsPD | 6.313098e-01 | 0.268041513 | 0.98536941 | 1.127817e-01 | 0.501880737|
+|NU$Age | 3.207703e-05 | 0.006854905 | 0.04694728 | 5.604056e-01 | 0.007277666|
+|NU$Gender1 | 6.721338e-01 | 0.905050945 | 0.87141162 | 6.982783e-05 | 0.844596805|
+
+# P value FDR校正  
+***此处分析用的是R语言*** 
+```r
+IF_P_group<- (IF_P[2,])#提取dataframe的第二行(我们只需要group的P value)
+IF_adj<- (p.adjust(IF_P_group, method = "BH")) 
+
+temp5<-t(IF_P_group)#将行转置为列
+temp6<-data.frame(temp5,IF_adj)#合并原始p和校正p
+
+names(temp6)<-c("pvalue","padjust")
+write.table(temp6,"IF_Padj_0802.csv",row.names=T,col.names=TRUE,sep=",")
+```
 
 # 差异倍数Fold change  
 这里使用的是PD组的mean÷control组的mean，不需要额外分panel  
