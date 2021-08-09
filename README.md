@@ -4,7 +4,11 @@
 ![IcarbonX](https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/v1481221422/tinzpbzzcjquq5ikhj5m.png)
 
 ## 目录
+* [蛋白数据cleaning & filtering](#readme)
+* [代谢数据cleaning](#readme)
 * [均一化Normalization](#readme)
 * [广义线性模型General linear model](#readme)
 * [P值校正FDR](#readme)
 * [差异倍数Fold change](#readme)
+
+## 蛋白数据cleaning & filtering
