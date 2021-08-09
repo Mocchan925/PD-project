@@ -4,7 +4,7 @@
 ![IcarbonX](https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/v1481221422/tinzpbzzcjquq5ikhj5m.png)
 
 ## 目录
-* [数据清理data cleaning](#readme)
+* [数据清理](https://github.com/Mocchan925/PD-project/blob/main/README.md#%E6%95%B0%E6%8D%AE%E6%B8%85%E7%90%86data-cleaning)
   * 蛋白
   * 代谢
 * [均一化Normalization](#readme)
