@@ -7,10 +7,10 @@
 * [数据清理](https://github.com/Mocchan925/PD-project/blob/main/README.md#%E6%95%B0%E6%8D%AE%E6%B8%85%E7%90%86data-cleaning)
   * 蛋白
   * 代谢
-* [均一化Normalization](#readme)
-* [广义线性模型General linear model](#readme)
-* [P值校正FDR](#readme)
-* [差异倍数Fold change](#readme)
+* [均一化Normalization](https://github.com/Mocchan925/PD-project/blob/main/README.md#%E5%9D%87%E4%B8%80%E5%8C%96normalization)
+* [广义线性模型General linear model](https://github.com/Mocchan925/PD-project/blob/main/README.md#%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8Bgeneral-linear-model)
+* [P值校正FDR](https://github.com/Mocchan925/PD-project/blob/main/README.md#p-value-fdr%E6%A0%A1%E6%AD%A3)
+* [差异倍数Fold change](https://github.com/Mocchan925/PD-project/blob/main/README.md#%E5%B7%AE%E5%BC%82%E5%80%8D%E6%95%B0fold-change)
 
 ## 数据清理data cleaning
 **蛋白**  
