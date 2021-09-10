@@ -1,16 +1,15 @@
 # PD疾病预测模型构建及变量筛选方法 
-### _We have analyzed the features differentially expressed in PD and control groups, now we want to build a disease prediction model for PD diagnosis and select variables with the greatest impact. There are many kind of methods are able to acheive this goal. Herein, I summarized the methods I used for model building and variables selection._
-***
+***We have analyzed the features differentially expressed in PD and control groups, now we want to build a disease prediction model for PD diagnosis and select variables with the greatest impact. There are many kind of methods are able to acheive this goal. Herein, I summarized the methods I used for model building and variables selection.***  
 
 ## 目录 
-### In total, there are x# method. All analysis were performed via R software
+**In total, there are 5 method for data filtering. All analysis were performed via R software**
 * [Stepwise regression 逐步回归]()
 * [BIC]()
 * [LASSO]()
 * [PCA]()
 * [All-Subsets Regression 最优子集回归]()
-  * [AIC]
-  * [BIC]
+  * AIC
+  * BIC
 * [Summary]()
 
 ## Step regression 
@@ -93,7 +92,7 @@ BIC                                  -422.2902  -420.6889  -419.2752  -418.9571 
 post prob                               0.403      0.181      0.089      0.076      0.062 
 }
 ```  
-### Therefore, I choose model 5 as the glm model, lets apply it for test data  
+**Therefore, I choose model 5 as the glm model, lets apply it for test data**  
 ```R 
 glm_BIC.test<- glm(Group~ CCL19 + CX3CL1+ CXCL6+ NEFL, data = test, family = binomial)
 
@@ -105,7 +104,6 @@ plot(BIC_roc, print.auc=T, auc.polygon = T, grid = c(0.1,0.2),
 ```  
 ![BIC](https://user-images.githubusercontent.com/68887901/132810246-886382f9-0830-4b40-84d8-a14e8b00c3b3.png)  
 **Test data looks good, BIC method is work well for olink data**  
-#### 若真实模型不在模型集合中，AIC可选择最优模型（即所选模型的泛化误差最小）。因此当研究的目标是预测性的，即希望预测精度高时，可考虑AIC；而当研究的目标是描述性的，即希望刻画自变量和因变量的真实结构时，则可考虑BIC
 
 ## LASSO regression  
 _In statistics and machine learning, lasso ( least absolute shrinkage and selection operator; also Lasso or LASSO) is a regression analysis method that performs both variable selection and regularization in order to enhance the prediction accuracy and interpretability of the resulting statistical model._  
@@ -306,7 +304,7 @@ NEFL        -1.479233  0.4238824 -3.489724 0.0004835192
 BIC筛选得出7个变量，建立回归模型看一下  
 
 ![bestglm bic](https://user-images.githubusercontent.com/68887901/132826742-db829168-3a88-4c24-83f0-aec92d47a0c2.png)  
-#### 和第二个用BMA包直接根据BIC系数分析得到的结果相比，两者没有什么区别(AUC = 0.906;AUC = 0.909)。 前者最后筛选得到的变量（四个）比全子集回归中经过LASSO回归得到的变量（7个）少。但全子集回归的弊端是变量不能超过15个  
+**和第二个用BMA包直接根据BIC系数分析得到的结果相比，两者没有什么区别(AUC = 0.906;AUC = 0.909)。 前者最后筛选得到的变量（四个）比全子集回归中经过LASSO回归得到的变量（7个）少。但全子集回归的弊端是变量不能超过15个**  
 
 ## Summary  
 * Step regression 得到的模型overfitting的几率较大
