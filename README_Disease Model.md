@@ -8,7 +8,7 @@
 * [BIC]()
 * [LASSO]()
 * [PCA]()
-* [Best selection model 最优子集回归]()
+* [All-Subsets Regression 最优子集回归]()
   * [AIC]()
   * [BIC]()
 
@@ -235,12 +235,53 @@ plot(pca_roc, print.auc=T, auc.polygon = T, grid = c(0.1,0.2),
      grid.col = c("green", "red"), max.auc.polygon = T,
      auc.polygon.col = "skyblue", print.thres = T, main = "PCA-GLM Model")
 ```
+![pca2](https://user-images.githubusercontent.com/68887901/132819093-69e269ec-acb2-40a9-abd7-a5761001e6c0.png)  
+先用PCA筛选变量再建模的方法不是很理想  
 
+## All-Subsets Regression 全子集回归/最优子集回归 (个人认为这个方法可以适合绝大部分数据)  
+从含相同自变量的个数的所有模型中挑选出最佳的模型组合，比如ABCD四个自变量，可以有2^4=16个模型。在进行模型比较时，R^2、校正的R^2越大，Cp值越小模型越佳。  
+HOWEVER, 此模型对x变量的数量有严格的限制，<= 15. 所以当变量超过15个时候，需要先筛选变量再进行全子集回归
+```R
+#As I mentioned above, we need to reduce the number of variables, thus I decide to use LASSO regression to decrease the size of data.
+#LASSO's result shows that there were 12 variables left 
 
+library(bestglm)
+bestglmdata<-test[,grepl("CCL19|CX3CL1|CXCL5|CXCL6|FGF.23|IL.17C|CDH6|CLEC10A|CPA2|DEPE2|KIF1BP|NEFL|Group",colnames(test))]
+#从test测试集选择LASSO得到的变量
 
+bestglmdata$Group2 = bestglmdata$Group#需要把预测变量放在最后一列
+bestglmdata<- bestglmdata[,-1]
+> head(bestglmdata)
+      CCL19   CX3CL1     CXCL5     CXCL6   FGF.23   IL.17C     CDH6  CLEC10A
+1  0.118250  0.04535 -0.101740 -0.895990  0.00100 1.862545  0.01261  0.40825
+2  1.061585 -0.21143  0.584895 -0.677525  0.00100 0.389560  0.05612  0.48398
+3 -1.460475  0.24775 -2.605315 -1.650525 -0.27120 0.150290  0.13827 -0.58533
+5  0.106055  0.29133  0.224075  0.305145  0.03713 0.038140  0.25072  0.43907
+8  0.288855 -0.57006 -1.441975 -1.745295  0.00100 0.001000 -0.25515 -0.33862
+9  2.458145  0.65887 -0.393355  0.515115 -0.03593 1.320680  0.13183 -0.54129
+       CPA2    KIF1BP     NEFL Group2
+1 -0.253530 -0.299130  0.59698      0
+2 -0.184245  0.465745  0.03486      1
+3 -0.570125 -1.318450  0.69507      0
+5  0.701475  1.230245 -0.36052      1
+8 -0.073035 -0.424215 -2.08377      1
+9  0.471375  0.578750  0.85564      0
 
+bestglm(bestglmdata, IC="AIC", family = binomial)
+>
+Morgan-Tatar search since family is non-gaussian.
+AIC
+BICq equivalent for q in (0.690987662005666, 0.740948240262352)
+Best Model:
+             Estimate Std. Error   z value    Pr(>|z|)
+(Intercept)  2.229247  0.7923445  2.813482 0.004900808
+CX3CL1      -2.500521  1.4620400 -1.710296 0.087211203
+CXCL6        2.453158  0.9073471  2.703660 0.006858032
+IL.17C      -1.319881  0.7025060 -1.878819 0.060269251
+CPA2        -1.693111  1.1451201 -1.478544 0.139262157
+NEFL        -3.083481  0.9716598 -3.173416 0.001506564
+```
 
-
-
-## Best selection model (the most suitable method and model for all data in our project)
-
+```R
+bestglm(bestglmdata, IC="BIC", family = binomial)
+```
