@@ -302,7 +302,16 @@ CPA2         1.376348  0.5117724  2.689375 0.0071585864
 NEFL        -1.479233  0.4238824 -3.489724 0.0004835192
 ```  
 BIC筛选得出7个变量，建立回归模型看一下  
-
+```R
+bestglm_BIC<- glm(Group~ CCL19+ CX3CL1+FGF.23+IL.17C+CLEC10A+
+                    CPA2+NEFL, data=test, family = binomial)
+#ROC
+pre_bestglm<- predict(bestglm_BIC, type ='response')
+bestglm_roc<- roc(test$Group, pre_bestglm)
+plot(bestglm_roc, print.auc=T, auc.polygon = T, grid = c(0.1,0.2),
+     grid.col = c("green", "red"), max.auc.polygon = T,
+     auc.polygon.col = "skyblue", print.thres = T, main = "BestGLM Model")
+```
 ![bestglm bic](https://user-images.githubusercontent.com/68887901/132826742-db829168-3a88-4c24-83f0-aec92d47a0c2.png)  
 **和第二个用BMA包直接根据BIC系数分析得到的结果相比，两者没有什么区别(AUC = 0.906;AUC = 0.909)。 前者最后筛选得到的变量（四个）比全子集回归中经过LASSO回归得到的变量（7个）少。但全子集回归的弊端是变量不能超过15个**  
 
