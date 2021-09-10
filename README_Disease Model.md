@@ -1,5 +1,5 @@
 # PD疾病预测模型构建及变量筛选方法 
-***We have analyzed the features differentially expressed in PD and control groups, now we want to build a disease prediction model for PD diagnosis and select variables with the greatest impact. There are many kind of methods are able to acheive this goal. Herein, I summarized the methods I used for model building and variables selection.***  
+***We have analyzed the features differentially expressed in PD and control groups, now we want to build a disease prediction model for PD diagnosis and select variables with the most significant impact. There are many kinds of methods that are able to achieve this goal. Herein, I summarized the methods I used for model building and variables selection.***  
 
 ## 目录 
 **In total, there are 5 method for data filtering. All analysis were performed via R software**
