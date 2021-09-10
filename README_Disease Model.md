@@ -3,14 +3,14 @@
 
 ## 目录 
 **In total, there are 5 method for data filtering. All analysis were performed via R software**
-* [Stepwise regression 逐步回归]()
-* [BIC]()
-* [LASSO]()
-* [PCA]()
-* [All-Subsets Regression 最优子集回归]()
+* [Stepwise regression 逐步回归](https://github.com/Mocchan925/PD-project/blob/main/README_Disease%20Model.md#step-regression)
+* [BIC](https://github.com/Mocchan925/PD-project/blob/main/README_Disease%20Model.md#bic-bayes-information-criteria)
+* [LASSO](https://github.com/Mocchan925/PD-project/blob/main/README_Disease%20Model.md#lasso-regression)
+* [PCA](https://github.com/Mocchan925/PD-project/blob/main/README_Disease%20Model.md#pca-principal-component-analysis)
+* [All-Subsets Regression 最优子集回归](https://github.com/Mocchan925/PD-project/blob/main/README_Disease%20Model.md#all-subsets-regression-%E5%85%A8%E5%AD%90%E9%9B%86%E5%9B%9E%E5%BD%92%E6%9C%80%E4%BC%98%E5%AD%90%E9%9B%86%E5%9B%9E%E5%BD%92-%E4%B8%AA%E4%BA%BA%E8%AE%A4%E4%B8%BA%E8%BF%99%E4%B8%AA%E6%96%B9%E6%B3%95%E5%8F%AF%E4%BB%A5%E9%80%82%E5%90%88%E7%BB%9D%E5%A4%A7%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE)
   * AIC
   * BIC
-* [Summary]()
+* [Summary](https://github.com/Mocchan925/PD-project/blob/main/README_Disease%20Model.md#summary)
 
 ## Step regression 
 _In statistics, stepwise regression is a method of fitting regression models in which the choice of predictive variables is carried out by an automatic procedure_ 
