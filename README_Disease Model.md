@@ -172,7 +172,7 @@ SNCG         .
 TBCB         .           
 WWP2         .  
 ```
-### There are still too many (12) significant variables after lasso regression. Though, we can try to use other method to filter more (like using BIC/step again or PCA), its time-consuming and I perfer move to next one. (But LASSO regression works pretty good in Metaomics data (positive mode), so it's largely depends on what type of data it is.)  
+### There are still too many (12) significant variables after lasso regression. Though, we can try to use other method to filter more (like using BIC/step again or PCA), its time-consuming and I perfer move to next one. (But LASSO regression works pretty good in metabolomics data (positive mode), so it's largely depends on what type of data it is.)  
 
 ## PCA Principal component analysis  
 _适用于变量很多，数据维度很高的时候。筛选贡献度最高的变量；但是新变量不依赖于因变量，也许不适合在有疾病组对照组的情况初期使用_
